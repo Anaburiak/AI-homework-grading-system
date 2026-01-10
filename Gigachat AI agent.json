@@ -1,0 +1,282 @@
+{
+  "name": "Gigachat AI agent",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "GigaChat-2",
+        "options": {}
+      },
+      "type": "n8n-nodes-gigachat.lmGigaChat",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        144
+      ],
+      "id": "d541fadb-54f3-4fef-a375-5e8f596973a5",
+      "name": "GigaChat Model",
+      "credentials": {
+        "gigaChatApi": {
+          "id": "JDijsdlVAGEnOLRK",
+          "name": "GigaChat account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an AI teaching assistant for a course on the Cynefin framework and decision-making tools.\nWrite in English.\nYour tone: friendly, concise, supportive, but academically professional.\nYour goal: give the teacher a clear evaluation that can be copy-pasted to the student as feedback. So write on behalf of the teacher. For example: \"Nice job! Generally correct classifications but insufficient depth in explanations.\" \n\nTask:\nCompare the student's answer with the Lesson Materials and evaluate it strictly according to the Evaluation Criteria.\nYour feedback must be short (1–3 sentences per criterion) and based only on the information provided.\n\nLesson Materials\n\n{{ $json.data }}\n\nStudent’s Answer\n\n{{ $('Normalize Update').item.json.message.text }}\n\nEvaluation Criteria (score each from 0 to 10):\n\nUnderstanding — how well the student demonstrates comprehension of the lesson.\n\nApplication_of_the_lesson_tools — how effectively the student applies the tools and methods from the lesson.\n\nAnswer_structure — clarity, logic, and organization of the student's response.\n\nRules:\n\nFor each criterion: provide a score (0–10) + a brief comment (1–3 sentences).\n\nThe Final Score is the average of the three criteria and cannot exceed 10.\n\nBase all judgments only on the Lesson Materials.\n\nOutput Format (strict):\n\nUnderstanding: X/10 — comment\nApplication_of_the_lesson_tools: X/10 — comment\nAnswer_structure: X/10 — comment\nFinal Score: X/10",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -336,
+        -64
+      ],
+      "id": "733530e0-d9db-4eb5-8246-fb3b281aa1a7",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"summary\": \"You solved the problem correctly...\",\n  \"criteria_scores\": [\n    {\n      \"name\": \"Accuracy\",\n      \"description\": \"Correctness of calculations\",\n      \"max_score\": 10,\n      \"min_score\": 0,\n      \"score\": 4,\n      \"comment\": \"A minor mistake was made...\"\n    }\n  ],\n  \"final_score\": 4,\n  \"recommendation\": \"Practice solving similar examples\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -48,
+        112
+      ],
+      "id": "6cae6f64-1dcc-457e-b0f6-9b9f09fb5cd8",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://strapi.com/api/responses",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "strapiTokenApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"data\": {\n        \"student\": \"{{ $('Get Student State').item.json.data[0].documentId }}\",\n        \"message\": \"{{ $('Get Student State').item.json.data[0].currentMessage.documentId }}\",\n        \"answer\": \"{{ $('Get Student State').item.json.data[0].currentMessage.content[0].children[0].text }}{{ $('Get Student State').item.json.data[0].currentMessage.content[1].children[0].text }}\",\n        \"reviewed\": false,\n        \"AI_score\": {{ $json.output.final_score }},\n        \"AI_feedback\": \"{{ $json.output.summary }}\"\n    }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        16,
+        -64
+      ],
+      "id": "0ec00a06-802c-41b1-8fb8-34824cf2769e",
+      "name": "Save response",
+      "credentials": {
+        "strapiTokenApi": {
+          "id": "KdTTzabWiHEErX3W",
+          "name": "Strapi Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.telegram.org/{{Telegram_API}}/sendMessage",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "strapiTokenApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": \"-1002442886405\",\n  \"message_thread_id\": 3908,\n  \"text\": \"📝 *New Assignment Submission*\\nStudent: {{ $('Get Student State').item.json.data[0].firstName }} {{ $('Get Student State').item.json.data[0].lastName }} (@{{ $('Get Student State').item.json.data[0].username }})\\nModule: {{ $('Get Student State').item.json.data[0].currentModule.title }}\\n\\n*Answer:* {{ $('Get Student State').item.json.data[0].currentMessage.content[0].children[0].text }} {{ $('Get Student State').item.json.data[0].currentMessage.content[1].children[0].text }}\\n\\n*AI feedback:* {{ $json.data.AI_feedback }}\\n*AI score:* {{ $json.data.AI_score }}\\n-----------------------------\\nTo grade, **Reply** to this message with: `[Score] [Comment]`\\nExample: `5 Great job, keep it up!`\\n\\nRef: #{{ $('Save response').item.json.data.documentId }}\",\n  \"parse_mode\": \"Markdown\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        224,
+        -64
+      ],
+      "id": "147f6162-971f-409b-817b-4aa93d99cc64",
+      "name": "send hw teacher",
+      "credentials": {
+        "strapiTokenApi": {
+          "id": "KdTTzabWiHEErX3W",
+          "name": "Strapi Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Нормализуем вход под один формат, как будто это Telegram Trigger\nconst update = $json.body; // это весь update от Telegram\n\nlet normalized = {\n    json: {}\n};\n\n// chat_id берём из любого места, где он есть\nconst chatId = update.message?.chat?.id \n    || update.callback_query?.message?.chat?.id \n    || update.callback_query?.from?.id \n    || update.poll_answer?.user?.id \n    || update.my_chat_member?.chat?.id \n    || null;\n\nif (!chatId) {\n    throw new Error(\"No chat_id found in update\");\n}\n\n// Копируем нужные части в корень\nif (update.message) {\n    normalized.json.message = update.message;\n    normalized.json.callback_query = null;\n    normalized.json.poll_answer = null;\n}\nelse if (update.callback_query) {\n    normalized.json.callback_query = update.callback_query;\n    normalized.json.message = update.callback_query.message || null;\n    normalized.json.poll_answer = null;\n}\nelse if (update.poll_answer) {\n    normalized.json.poll_answer = update.poll_answer;\n    normalized.json.message = null;\n    normalized.json.callback_query = null;\n    \n    // Для poll_answer создаём фейковое message, чтобы Get Student State работал по user id\n    normalized.json.message = {\n        chat: { id: chatId },\n        from: update.poll_answer.user\n    };\n}\nelse {\n    // другие типы если будут\n    normalized.json.message = update.message || null;\n}\n\nnormalized.json.chatId = chatId; // удобно для дальнейшего использования\n\nreturn [normalized];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -784,
+        16
+      ],
+      "id": "6d1943a9-86ef-460b-ac85-bd9180cec93f",
+      "name": "Normalize Update"
+    },
+    {
+      "parameters": {
+        "url": "=https://strapi.com/api/students?filters[telegramId][$eq]={{ $json.message ? $json.message.chat.id : $json.callback_query.message.chat.id }}&populate=*",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "strapiTokenApi",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -560,
+        -16
+      ],
+      "id": "339678d2-c945-4bff-90d4-d3e11b01e00c",
+      "name": "Get Student State",
+      "credentials": {
+        "strapiTokenApi": {
+          "id": "KdTTzabWiHEErX3W",
+          "name": "Strapi Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -992,
+        32
+      ],
+      "id": "684ff0b9-6194-4e27-a4bd-a47d37f3852e",
+      "name": "Webhook1",
+      "webhookId": "71bfcf76-75de-4873-a1b6-172e5f67fdc2"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Webhook1').item.json.body.message.chat.id }}",
+        "text": "=Summary: {{ $json.output.summary }} \n\nCriteria scores:\n\n1) {{ $json.output.criteria_scores[0].name }}, \n{{ $json.output.criteria_scores[0].score }} points, \n{{ $json.output.criteria_scores[0].comment }}\n\n2){{ $json.output.criteria_scores[1].name }}, \n{{ $json.output.criteria_scores[1].score }} points, \n{{ $json.output.criteria_scores[1].comment }}\n\n3){{ $json.output.criteria_scores[2].name }}, \n{{ $json.output.criteria_scores[2].score }} points, \n{{ $json.output.criteria_scores[2].comment }}\n\nFinal score: {{ $json.output.final_score }}\n\nFeedback: {{ $json.output.recommendation }}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        400,
+        -64
+      ],
+      "id": "dfcb59fb-bac3-44a5-b3da-3e185f8f7c84",
+      "name": "Send a text message",
+      "webhookId": "fb823ee7-8f8c-436a-9d44-4b6e62a73be0",
+      "credentials": {
+        "telegramApi": {
+          "id": "vTmm3W0BChTH6j04",
+          "name": "Telegram account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "GigaChat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Save response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save response": {
+      "main": [
+        [
+          {
+            "node": "send hw teacher",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Update": {
+      "main": [
+        [
+          {
+            "node": "Get Student State",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Student State": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Normalize Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "send hw teacher": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "111db429-c3fd-47ac-9e7c-72dffd4582dc",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7457c584e06596e61cd8173733947178027d91032c6d8d9cd7d55eb0531f1fee"
+  },
+  "id": "hCN7FjI7pQFlX2Fq",
+  "tags": []
+}
