@@ -3,9 +3,7 @@ An event-driven AI automation system that receives student homework via Telegram
 evaluates it using LLM agents (Ollama / GigaChat), and stores structured feedback
 and grades in a database with automated notifications.
 
-[Gigachat workflow](https://github.com/Anaburiak/AI-homework-grading-system/blob/1a117b4cfd0c40ef7f97b6a7d71c2e6ea7f82db0/photos/Gigachat%20workflow.png)
-
-[Gigachat workflow](Gigachat workflow.png)
+<img width="1771" height="391" alt="Gigachat workflow" src="https://github.com/user-attachments/assets/2b76fe31-4a2b-4d92-b6be-59bde00de6ab" />
 
 ## Problem
 Manual homework evaluation is time-consuming and does not scale well.
