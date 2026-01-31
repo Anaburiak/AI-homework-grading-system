@@ -24,6 +24,7 @@ into a single automated pipeline.
    - sent to the student
    - sent to the teacher
    - stored in NocoBase
+     
   https://github.com/Anaburiak/AI-homework-grading-system/blob/fb668ec494c8f9ab10638595995e8792bbb6debb/architecture/diagram.png
 
 ## AI Evaluation Logic
