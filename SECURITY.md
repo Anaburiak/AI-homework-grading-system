@@ -1,3 +1,3 @@
-Tokens are not stored
-
-Data is anonymized
+- No API tokens or credentials are stored in the repository
+- Personal data is anonymized in examples
+- All secrets are managed via environment variables
