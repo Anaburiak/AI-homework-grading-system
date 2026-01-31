@@ -1,5 +1,8 @@
 In general, these workflows are similar to one another. However, I still consider the pypline and differences to be explained.
 
+<!-- краткое описание каждого workflow. зачем он существует. какие входы / выходы -->
+
+
 <img width="1766" height="281" alt="Ollama workflow" src="https://github.com/user-attachments/assets/b1b3a903-1196-42e6-b423-19127729fa8b" />
 
 ## 1. Webhook.
