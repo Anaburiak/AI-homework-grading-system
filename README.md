@@ -5,6 +5,8 @@ and grades in a database with automated notifications.
 
 [Gigachat workflow](https://github.com/Anaburiak/AI-homework-grading-system/blob/1a117b4cfd0c40ef7f97b6a7d71c2e6ea7f82db0/photos/Gigachat%20workflow.png)
 
+[Gigachat workflow](Gigachat workflow.png)
+
 ## Problem
 Manual homework evaluation is time-consuming and does not scale well.
 Teachers need fast, consistent feedback while students want immediate responses.
