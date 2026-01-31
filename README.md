@@ -33,6 +33,8 @@ Homework is evaluated using three criteria:
 - Application of the lesson tools
 - Answer structure
 
+I chose these criteria because they allow to rate answer generally without specifications. As a result, this worflow can be used regardless the theme of assignement.
+
 The AI returns:
 - Numeric grade
 - Structured teacher-style feedback
