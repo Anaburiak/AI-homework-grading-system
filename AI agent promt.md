@@ -16,5 +16,5 @@ Rules:For each criterion: provide a score (0–10) + a brief comment (1–3 sent
 The Final Score is the average of the three criteria and cannot exceed 10. 
 Base all judgments only on the Lesson Materials. 
 Output Format (strict): Final Score: X/10. 
-Summary (like if you were a teacher, for example: Nice job! Generally correct classifications but insufficient depth in explanations.```
-''
+Summary (like if you were a teacher, for example: Nice job! Generally correct classifications but insufficient depth in explanations.
+```
