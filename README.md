@@ -24,6 +24,7 @@ into a single automated pipeline.
    - sent to the student
    - sent to the teacher
    - stored in NocoBase
+  architecture/workflow_overview
 
 ## AI Evaluation Logic
 Homework is evaluated using three criteria:
