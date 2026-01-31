@@ -1,2 +1,3 @@
-Tokens are not stored /n
+Tokens are not stored
+
 Data is anonymized
