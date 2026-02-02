@@ -54,7 +54,7 @@ Output:
 ```
 
 ## 2. Normalize Update
-This node takes necessary fields of Webhook output and outputs them in a structured way. It helps clean all unimportant inputs.
+This node takes necessary fields of Webhook output and outputs them in a structured way. It cleans all unimportant inputs.
 
 Example:
 
@@ -74,5 +74,17 @@ Output:
 "chatId": 123456789
 }]
 ```
+
+## 3. Create Student
+This node signs in new student to Nocobase. It keeps structured information about student in one place with ability to access it anytime.
+
+## 4. Get workbooks
+This node gives acces to the task that student sended assingnment to. It gives access to student's lesson materials in purpose of better rating made by AI Agent later 
+
+## 5. Ollama (AI agent)
+This node posts query with http request to local Ollama. As a result, Ollama responses with scores and feedback to student's homework.
+
+## 6. Parse AI response
+This node cut off unnecessary phrases and structurize Ollama's output. 
 
 <img width="1771" height="391" alt="Gigachat workflow" src="https://github.com/user-attachments/assets/2b76fe31-4a2b-4d92-b6be-59bde00de6ab" />
