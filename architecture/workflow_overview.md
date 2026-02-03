@@ -90,7 +90,18 @@ Output:
 ```
 
 ## 4. Get workbooks
-This node gives acces to the task that student sended assingnment to. It gives access to student's lesson materials in purpose of better rating made by AI Agent later 
+This node gives acces to the task that student sended assingnment to. It means to student's lesson materials in purpose of better rating made by AI Agent in later nodes. 
+
+Output:
+```json
+({
+  "id": 1,
+  "title": "Cynefin Quadrant Classification",
+  "lesson": "We all deal with different types of systems every day—from following a recipe to managing a team project. The Cynefin Quadrant framework helps us understand the nature of a problem or situation so we can respond to it more effectively. It breaks systems into four contexts: Simple (Clear): Cause and effect are obvious. The solution is known, and best practices apply. Complicated: Cause and effect exist but are not immediately obvious. Expert analysis and good practices are required. Complex: Cause and effect can only be understood in retrospect. The situation is unpredictable, so we must experiment, probe, and adapt. Chaotic: No clear cause-and-effect relationships. The priority is to act immediately to stabilize the situation before we can analyze it. The goal of this task is to move beyond theory and ground these concepts in your own experience. By identifying two personal examples for each quadrant, you'll practice recognizing the unique nature of different challenges and opportunities in your life.",
+  "task_id": 2.2,
+  "tast_text": "For each system, please give 2 examples from your life. Don’t use the ideas from the Exercise 1. Simple Example 1: Example 2: ;Complicated Example 1: Example 2: ; Complex Example 1: Example 2: ; Chaotic Example 1: Example 2:"
+})
+```
 
 ## 5. Ollama (AI agent)
 This node posts query with http request to local Ollama. As a result, Ollama responses with scores and feedback to student's homework.
