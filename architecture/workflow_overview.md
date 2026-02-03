@@ -78,6 +78,17 @@ Output:
 ## 3. Create Student
 This node signs in new student to Nocobase. It keeps structured information about student in one place with ability to access it anytime.
 
+Output:
+```json
+({
+  "first_name": "Nickname",
+  "chatId": 123456789,
+  "username": "TgUserName",
+  "workbook_id": 1,
+  "text": "Simple:\nExample 1: Making a cup of coffee in the morning using a coffee machine.\nExample 2: Brushing my teeth before going to bed.\n\nComplicated:\nExample 1: Planning a monthly budget for my household.\nExample 2: Preparing a tax declaration form with the help of an accountant.\n\nComplex:\nExample 1: Learning to play a new musical instrument by experimenting with different techniques.\nExample 2: Managing relationships in a new team at work, adapting to different personalities.\n\nChaotic:\nExample 1: Responding to a sudden power outage during an important online meeting.\nExample 2: Dealing with an unexpected health emergency in the family."
+})
+```
+
 ## 4. Get workbooks
 This node gives acces to the task that student sended assingnment to. It gives access to student's lesson materials in purpose of better rating made by AI Agent later 
 
