@@ -106,7 +106,26 @@ Output:
 ## 5. Ollama (AI agent)
 This node posts query with http request to local Ollama. As a result, Ollama responses with scores and feedback to student's homework.
 
+Output:
+```json
+({
+  "final_score": 8,
+  "summary": "Overall, the student demonstrates solid understanding and application of the Cynefin framework."
+  "criteria scores": {
+    "understanding": 8,
+    "comment": "Demonstrates good comprehension of the Cynefin framework and its domains."
+  }, {
+    "application_of_the_lesson_tools": 7,
+    "comment": "Applies the tools effectively in most cases."
+  }, {
+    "answer_structure": 9,
+    "comment": "Clear, logical, and organized structure."
+  }
+  "feedback": "Good effort! Showcases strong grasp of concepts but could benefit from deeper exploration in certain areas."
+})
+```
+
 ## 6. Parse AI response
-This node cut off unnecessary phrases and structurize Ollama's output. 
+This node cuts off unnecessary phrases and structurize Ollama's output. 
 
 <img width="1771" height="391" alt="Gigachat workflow" src="https://github.com/user-attachments/assets/2b76fe31-4a2b-4d92-b6be-59bde00de6ab" />
