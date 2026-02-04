@@ -109,8 +109,8 @@ This node posts query with http request to local Ollama. As a result, Ollama res
 Output:
 ```json
 ({
-  "final_score": 8,
-  "summary": "Overall, the student demonstrates solid understanding and application of the Cynefin framework."
+  "final_score": "Final score: 8/10",
+  "summary": "Summary: overall, the student demonstrates solid understanding and application of the Cynefin framework."
   "criteria scores": {
     "understanding": 8,
     "comment": "Demonstrates good comprehension of the Cynefin framework and its domains."
@@ -121,7 +121,7 @@ Output:
     "answer_structure": 9,
     "comment": "Clear, logical, and organized structure."
   }
-  "feedback": "Good effort! Showcases strong grasp of concepts but could benefit from deeper exploration in certain areas."
+  "feedback": "Feedback: Good effort! Showcases strong grasp of concepts but could benefit from deeper exploration in certain areas."
 })
 ```
 
