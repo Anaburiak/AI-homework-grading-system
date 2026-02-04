@@ -108,21 +108,28 @@ This node posts query with http request to local Ollama. As a result, Ollama res
 
 Output:
 ```json
-({
-  "final_score": "Final score: 8/10",
-  "summary": "Summary: overall, the student demonstrates solid understanding and application of the Cynefin framework."
-  "criteria scores": {
-    "understanding": 8,
-    "comment": "Demonstrates good comprehension of the Cynefin framework and its domains."
-  }, {
-    "application_of_the_lesson_tools": 7,
-    "comment": "Applies the tools effectively in most cases."
-  }, {
-    "answer_structure": 9,
-    "comment": "Clear, logical, and organized structure."
-  }
-  "feedback": "Feedback: Good effort! Showcases strong grasp of concepts but could benefit from deeper exploration in certain areas."
-})
+{
+  "final_score": 8,
+  "summary": "Nice work! Your examples are well-chosen and accurately reflect the core distinctions between the Cynefin domains. The logic behind each classification is clear and grounded in personal experience.",
+  "criteria_scores": [
+    {
+      "criterion": "Understanding",
+      "score": 9,
+      "comment": "Your examples correctly capture the essence of each domain. You clearly distinguish between a known procedure (Simple), an analyzable problem requiring expertise (Complicated), an emergent situation requiring experimentation (Complex), and a crisis requiring immediate action (Chaotic). This shows strong comprehension."
+    },
+    {
+      "criterion": "Application of the lesson tools",
+      "score": 8,
+      "comment": "You effectively applied the Cynefin framework to generate relevant, real-life examples for each quadrant. The choices are appropriate, though the 'Complicated' examples could be slightly more specific (e.g., what specific analysis is done in budgeting?) to showcase deeper application."
+    },
+    {
+      "criterion": "Answer structure",
+      "score": 9,
+      "comment": "Your response is perfectly structured, clear, and easy to follow. You presented two examples per domain in a logical and organized manner, exactly as requested by the task. The format is excellent."
+    }
+  ],
+  "feedback": "Nice work! Your examples are well-chosen and accurately reflect the core distinctions between the Cynefin domains. The logic behind each classification is clear and grounded in personal experience.",
+}
 ```
 
 ## 6. Parse AI response
