@@ -127,4 +127,14 @@ Output:
 }
 ```
 
+## 7. Update AI Score and feedback
+This node updates two fields of student's data in Nocobase. It eliminates professor's need to manually fill in all scores and remember feedback.
+
+```json
+{
+  "AI_score": 8,
+  "AI_feedback": "Nice work! Your examples are well-chosen and accurately reflect the core distinctions between the Cynefin domains. The logic behind each classification is clear and grounded in personal experience."
+}
+```
+
 <img width="1771" height="391" alt="Gigachat workflow" src="https://github.com/user-attachments/assets/2b76fe31-4a2b-4d92-b6be-59bde00de6ab" />
