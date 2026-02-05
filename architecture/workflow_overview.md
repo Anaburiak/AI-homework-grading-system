@@ -175,4 +175,41 @@ To grade, <b>Reply</b> with:
 Ref: #123456789
 ```
 
+## 9. Send a text message
+This node is optional bc it sends the same output as the previous node to user who sent message to the TG-bot. It was used by me to control the quality of AI answers and regulate if needed.
+
+Output:
+```
+📝 New Assignment Submission
+Student: Nickname (@TgUserName)
+Module: Cynefin Quadrant Classification
+
+Answer:
+Simple:
+Example 1: Making a cup of coffee in the morning using a coffee machine.
+Example 2: Brushing my teeth before going to bed.
+
+Complicated:
+Example 1: Planning a monthly budget for my household.
+Example 2: Preparing a tax declaration form with the help of an accountant.
+
+Complex:
+Example 1: Learning to play a new musical instrument by experimenting with different techniques.
+Example 2: Managing relationships in a new team at work, adapting to different personalities.
+
+Chaotic:
+Example 1: Responding to a sudden power outage during an important online meeting.
+Example 2: Dealing with an unexpected health emergency in the family.
+
+AI feedback:
+Nice work! Your examples are well-chosen and accurately reflect the core distinctions between the Cynefin domains. The logic behind each classification is clear and grounded in personal experience.
+AI score: 8
+
+-----------------------------
+To grade, Reply with:
+[Score] [Comment]
+
+Ref: #123456789
+```
+
 <img width="1771" height="391" alt="Gigachat workflow" src="https://github.com/user-attachments/assets/2b76fe31-4a2b-4d92-b6be-59bde00de6ab" />
