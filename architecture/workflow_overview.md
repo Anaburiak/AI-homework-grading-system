@@ -142,7 +142,7 @@ Output:
 This node sends structured message to teacher. It closes automation loop, so each time student's answer processed, teacher get already rated and well-explained score and feedback to be copypasted if meets teacher's opinion.
 
 Output:
-```json
+```
 📝 <b>New Assignment Submission</b>
 Student: Nickname (@TgUserName)
 Module: Cynefin Quadrant Classification
