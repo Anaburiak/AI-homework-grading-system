@@ -143,6 +143,36 @@ This node sends structured message to teacher. It closes automation loop, so eac
 
 Output:
 ```json
+📝 <b>New Assignment Submission</b>
+Student: Nickname (@TgUserName)
+Module: Cynefin Quadrant Classification
 
+<b>Answer:</b>
+Simple:
+Example 1: Making a cup of coffee in the morning using a coffee machine.
+Example 2: Brushing my teeth before going to bed.
+
+Complicated:
+Example 1: Planning a monthly budget for my household.
+Example 2: Preparing a tax declaration form with the help of an accountant.
+
+Complex:
+Example 1: Learning to play a new musical instrument by experimenting with different techniques.
+Example 2: Managing relationships in a new team at work, adapting to different personalities.
+
+Chaotic:
+Example 1: Responding to a sudden power outage during an important online meeting.
+Example 2: Dealing with an unexpected health emergency in the family.
+
+<b>AI feedback:</b>
+Nice work! Your examples are well-chosen and accurately reflect the core distinctions between the Cynefin domains. The logic behind each classification is clear and grounded in personal experience.
+<b>AI score:</b> 8
+
+-----------------------------
+To grade, <b>Reply</b> with:
+[Score] [Comment]
+
+Ref: #123456789
+```
 
 <img width="1771" height="391" alt="Gigachat workflow" src="https://github.com/user-attachments/assets/2b76fe31-4a2b-4d92-b6be-59bde00de6ab" />
